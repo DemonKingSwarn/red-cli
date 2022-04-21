@@ -1,2 +1,19 @@
-
 * RED-CLI
+
+** Dependencies:-
+
+-  [[https://github.com/nsxiv/nsxiv-extra][nsxiv-url]] - to view memes from their url
+-  [[https://github.com/junegunn/fzf][fzf]] - for selection screen
+
+** Install:-
+
+cURL the script into your =$PATH=
+
+#+BEGIN_SRC sh
+  sudo curl -sL "https://github.com/DemonKingSwarn/red-cli/raw/master/red-cli" > /usr/local/bin/red-cli
+  sudo chmod +x /usr/local/bin/red-cli
+#+END_SRC
+
+** Uninstall:-
+
+Just remove it from your =$PATH=
