@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+
+url="https://libreddit.demonkingswarn1.repl.co"
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}"
+
+input() {
+	printf "Enter Subreddit: " ; read -r subreddit
+	get_memes
+}
+
+get_memes() {
+	memes_jpg=$(curl -s "$url/r/$subreddit" | grep -Eo "img\/[a-zA-Z0-9?%-]*.jpg" | uniq)
+	echo "$memes_jpg" > "$cache_dir/urls.txt"
+	memes_png=$(curl -s "$url/r/$subreddit" | grep -Eo "img\/[a-zA-Z0-9?%-]*.png" | uniq)
+	echo "$memes_png" >> "$cache_dir/urls.txt"
+}
+
+rm -f "$cache_dir/urls.txt"
+
+subreddit=$(echo "$*" | sed 's/ //g')
+
+[ -n "$subreddit" ] && get_memes
+[ ! -n "$subreddit" ] && input
+
+choice=$(cat "$cache_dir/urls.txt" | fzf)
+
+# change it to your image viewer
+nsxiv-url "$url/$choice"
